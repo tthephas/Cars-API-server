@@ -43,3 +43,15 @@ app.get('/', (req, res) => {
 })
 
 
+
+
+
+
+
+// Server listener
+
+const PORT = process.env.PORT
+app.listen(PORT, () => console.log(`Your port is successfully running smooth: ${PORT}`))
+
+
+// END
