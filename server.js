@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const morgan = require('morgan')
 require('dotenv').config()
 const path = require('path')
+const Cars = require('./models/cars')
 
 
 //// IMPORT MODELS
@@ -41,6 +42,32 @@ app.use(express.json())
 app.get('/', (req, res) => {
     res.send('Server is live, ready for requests')
 })
+
+// build a seed route
+// sends some starter resources to the db
+// using the seed script for this
+app.get('/cars/seed', (req, res) => {
+    //build array of cars
+    const startCars = [
+        {make: 'Tesla', model: 'Model 3', color: 'Grey', forSale: false}
+        {make: 'Ford', model: 'Taurus', color: 'Black', forSale: true}
+        {make: 'Chevy', model: 'Silverado', color: 'White', forSale: false}
+        {make: 'Hyundai', model: 'Elantra', color: 'Green', forSale: true}
+        {make: 'BMW', model: 'M3', color: 'Blue', forSale: false}
+    ]
+    // then we delete all cars in the db, all instances of the resource
+    Cars.deleteMany({})
+        .then(() => {
+        Cars.create(startCars)
+            .then(data => {
+                res.json(data)
+            })
+            .catch(err => console.log('The following error occured: \n', err))
+        })
+})
+
+
+
 
 
 
