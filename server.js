@@ -20,8 +20,14 @@ const CONFIG = {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }
+
+
+
+
 // Establish connection
 mongoose.connect(DATABASE_URL, CONFIG)
+
+mongoose.connection
 
 // Tell mongoose what to do with certain events
     .on('open', () => console.log('Connected to mongoose'))
@@ -49,10 +55,10 @@ app.get('/', (req, res) => {
 app.get('/cars/seed', (req, res) => {
     //build array of cars
     const startCars = [
-        {make: 'Tesla', model: 'Model 3', color: 'Grey', forSale: false}
-        {make: 'Ford', model: 'Taurus', color: 'Black', forSale: true}
-        {make: 'Chevy', model: 'Silverado', color: 'White', forSale: false}
-        {make: 'Hyundai', model: 'Elantra', color: 'Green', forSale: true}
+        {make: 'Tesla', model: 'Model 3', color: 'Grey', forSale: false},
+        {make: 'Ford', model: 'Taurus', color: 'Black', forSale: true},
+        {make: 'Chevy', model: 'Silverado', color: 'White', forSale: false},
+        {make: 'Hyundai', model: 'Elantra', color: 'Green', forSale: true},
         {make: 'BMW', model: 'M3', color: 'Blue', forSale: false}
     ]
     // then we delete all cars in the db, all instances of the resource
