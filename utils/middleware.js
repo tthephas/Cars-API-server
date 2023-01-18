@@ -19,16 +19,16 @@ const middleware = (app) => {
     app.use(express.static('public')) 
     app.use(express.json()) 
 
-    app.use(
-        session({
-            secret: process.env.SECRET,
-            store: MongoStore.create({
-                mongoUrl: process.env.DATABASE_URL
-            }),
-            saveUninitialized: true,
-            resave: false
-        })
-    )
+    // app.use(
+    //     session({
+    //         secret: process.env.SECRET,
+    //         store: MongoStore.create({
+    //             mongoUrl: process.env.DATABASE_URL
+    //         }),
+    //         saveUninitialized: true,
+    //         resave: false
+    //     })
+    // )
 }
 
 
