@@ -6,33 +6,30 @@ const mongoose = require('mongoose')
 const morgan = require('morgan')
 require('dotenv').config()
 const path = require('path')
-const Cars = require('./models/cars')
+// refactoring
+const CarRouter = require('./controllers/carControllers')
+const UserRouter = require('./controllers/userControllers')
+const middleware = require('./utils/middleware')
+
+// create express app object
+const app = express()
 
 
-//// IMPORT MODELS
+// MIDDLEWARE
+middleware(app)
+
+// ROUTES
+app.get('/', (req, res) => {
+    res.send('Server is live, ready for requests')
+})
+
+// register our routes
+app.use('/cars', CarRouter)
+app.use('/users', UserRouter)
 
 
+//////// EVERYTHIGN ELSE GOES FROM HERE...
 
-//// CONNECT TO DATABASE
-
-const DATABASE_URL = process.env.DATABASE_URL
-const CONFIG = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}
-
-
-
-
-// Establish connection
-mongoose.connect(DATABASE_URL, CONFIG)
-
-mongoose.connection
-
-// Tell mongoose what to do with certain events
-    .on('open', () => console.log('Connected to mongoose'))
-    .on('close', () => console.log('Disconnected from mongoose'))
-    .on('error', () => console.log('An error occured: \n', err))
 
 
 // CREATE EXPRESS APP OBJECT
@@ -44,10 +41,7 @@ app.use(express.urlencoded({ extended: true}))
 app.use(express.static('public')) 
 app.use(express.json()) 
 
-// ROUTES
-app.get('/', (req, res) => {
-    res.send('Server is live, ready for requests')
-})
+
 
 // build a seed route
 // sends some starter resources to the db
@@ -130,6 +124,9 @@ app.get('/cars/:id', (req, res) => {
         })
         .catch(err => console.log(err))
 })
+
+//////  TO HERE. ALL SHOULD GO DURING REFACTORING
+
 
 // Server listener
 

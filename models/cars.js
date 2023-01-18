@@ -1,6 +1,6 @@
 //// BUILD A SCHEMA FOR THE CARS RESOURCE
 
-const { default: mongoose } = require('mongoose')
+const { default: mongoose } = require('../utils/connection')
 
 // pull schema and model from mongoose
 const { Schema, model } = mongoose
