@@ -88,7 +88,7 @@ app.get('/cars', (req, res) => {
 // CREATE - receives a request body, then creates a new document in the database with that data
 app.post("/cars", (req, res) => {
     const newCar = req.body
-    Fruit.create(newCar)
+    Cars.create(newCar)
         .then(car => {
             res.status(201).json({ car: car.toObject()})
         })
