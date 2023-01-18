@@ -95,6 +95,19 @@ app.post("/cars", (req, res) => {
         .catch((err) => {console.log(err)})
 })
 
+//PUT ROUTES
+// update a specific car
+app.put('/cars/:id', (req, res) => {
+    const id = req.params.id
+    const updatedCar = req.body
+    Cars.findByIdAndUpdate(id, updatedCar, { new: true})
+        .then(car => {
+            console.log('the newly updated car', car)
+            res.sendStatus(204)
+        })
+        .catch(err => console.log(err))
+})
+
 
 // SHOW ROUTE
 // read,   find and display one resource
