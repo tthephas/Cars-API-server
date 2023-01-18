@@ -96,7 +96,16 @@ app.post("/cars", (req, res) => {
 })
 
 
-
+// SHOW ROUTE
+// read,   find and display one resource
+app.get('/cars/:id', (req, res) => {
+    const id = req.params.id
+    Cars.findById(id)
+        .then(car => {
+            res.json({ car: car})
+        })
+        .catch(err => console.log(err))
+})
 
 // Server listener
 
