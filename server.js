@@ -108,6 +108,17 @@ app.put('/cars/:id', (req, res) => {
         .catch(err => console.log(err))
 })
 
+//DELETE ROUTE
+// delete one car by id
+app.delete('/cars/:id', (req, res) => {
+    const id = req.params.id
+    Cars.findByIdAndRemove(id)
+        .then(() => {
+            res.sendStatus(204)
+        })
+        .catch(err => console.log(err))
+})
+
 
 // SHOW ROUTE
 // read,   find and display one resource
