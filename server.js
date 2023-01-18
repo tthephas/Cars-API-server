@@ -72,11 +72,28 @@ app.get('/cars/seed', (req, res) => {
         })
 })
 
+// INDEX ROUTE
+// this route will display all fruits 
+app.get('/cars', (req, res) => {
+    //find all the cars 
+    Cars.find({})
+    .then((cars) => {
+        res.json({ cars: cars})
+    })
+    .catch(err => console.log('the following error occurred: \n', err))
+})
 
 
-
-
-
+// CREATE ROUTE
+// CREATE - receives a request body, then creates a new document in the database with that data
+app.post("/cars", (req, res) => {
+    const newCar = req.body
+    Fruit.create(newCar)
+        .then(car => {
+            res.status(201).json({ car: car.toObject()})
+        })
+        .catch((err) => {console.log(err)})
+})
 
 
 
