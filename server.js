@@ -9,6 +9,7 @@ const path = require('path')
 // refactoring
 const CarRouter = require('./controllers/carControllers')
 const UserRouter = require('./controllers/userControllers')
+const CommentRouter = require('./controllers/commentControllers')
 const middleware = require('./utils/middleware')
 
 // create express app object
@@ -26,6 +27,7 @@ app.get('/', (req, res) => {
 // register our routes
 app.use('/cars', CarRouter)
 app.use('/users', UserRouter)
+app.use('/comments', CommentRouter)
 
 
 
