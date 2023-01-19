@@ -10,26 +10,7 @@ const router = express.Router()
 
 //// Routes               ////
 //////////////////////////////
-// we're going to build a seed route
-router.get('/seed', (req, res) => {
-    // array of starter resources- cars 
-    const startCars = [
-        {make: 'Tesla', model: 'Model 3', color: 'Grey', forSale: false},
-        {make: 'Ford', model: 'Taurus', color: 'Black', forSale: true},
-        {make: 'Chevy', model: 'Silverado', color: 'White', forSale: false},
-        {make: 'Hyundai', model: 'Elantra', color: 'Green', forSale: true},
-        {make: 'BMW', model: 'M3', color: 'Blue', forSale: false}
-    ]
-    // then we delete every fruit in the database(all instances of this resource)
-    Cars.deleteMany({})
-        .then(() => {
-    Cars.create(startCars)
-        .then(data => {
-            res.json(data)
-        })
-        .catch(err => console.log('The following error occured: \n', err))
-    })
-})
+
 
 
 // INDEX ROUTE
