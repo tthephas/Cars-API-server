@@ -16,6 +16,13 @@ const router = express.Router()
 //////////////////////////////
 
 
+// GET -> /users/signup
+// This renders a liquid page with the signup form
+router.get('/signup', (req, res) => {
+    res.render('users/signup')
+})
+
+
 // POST -> /users/signup
 // This route creates new users in our db
 router.post('/signup', async (req, res) => {
@@ -42,6 +49,14 @@ router.post('/signup', async (req, res) => {
             res.json(err)
         })
 })
+
+// GET -> /users/login
+// This renders a liquid page with the login form
+router.get('/login', (req, res) => {
+    res.render('users/login')
+})
+
+
 
 // POST -> /users/login
 // This route creates new session in our db(and in the browser)
@@ -72,22 +87,28 @@ router.post('/login', async (req, res) => {
 
                     // we'll send a 201 response and the user as json(for now)
                     // we'll update this after a couple tests to adhere to best practices
-                    res.status(201).json({ username: user.username })
+                    res.redirect('/')
                 } else {
                     // if the passwords dont match, send the user a message
-                    res.json({ error: 'username or password is incorrect' })
+                    res.redirect(`/error?error=username%20or password%20is%20incorrect`)
                 }
 
             } else {
                 // if the user does not exist, we respond with a message saying so
-                res.json({ error: 'user does not exist' })
+                res.redirect(`/error?error=user%20does%20 not%20exist%20`)
             }
 
         })
         .catch(err => {
             console.log(err)
-            res.json(err)
+            res.redirect(`/error?error=${err}`)
         })
+})
+
+// GET -> /users/logout
+// This route renders a page that allows user to logout
+router.get('/logout', (req, res) => {
+    res.render('users/logout')
 })
 
 // DELETE -> /users/logout
