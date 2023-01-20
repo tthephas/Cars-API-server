@@ -1,15 +1,15 @@
 {% layout 'layout.liquid' %}
 {% block content %}
-  {% if fruits.length > 0 %}
-    <h2>All fruits</h2>
+  {% if car.length > 0 %}
+    <h2>All of my Cars</h2>
     <ul>
-      {% for fruit in fruits %}
-        <li>{{ fruit.name }}</li>
+      {% for car in cars %}
+        <li>{{ car.name }}</li>
       {% endfor %}
     </ul>
 
   {% else %}
-    <h2>No fruits yet.....  go create some!
+    <h2>No cars yet.....  go create some!
     </h2>
   {% endif %}
 
