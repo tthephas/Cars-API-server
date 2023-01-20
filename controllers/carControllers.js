@@ -27,7 +27,8 @@ router.get('/', (req, res) => {
     })
     .catch(err => {
         console.log(err)
-        res.status(404).json(err)
+        //res.status(404).json(err)
+        res.redirect(`/error?error=${err}`)
     })
 })
 
@@ -50,7 +51,8 @@ router.post("/", (req, res) => {
     console.log('this is the req.body or newCar, after owner', newCar)
     Cars.create(newCar)
         .then(car => {
-            res.status(201).json({ car: car.toObject()})
+            //res.status(201).json({ car: car.toObject()})
+            res.redirect(`/cars/${car.id}`)
         })
         .catch(err => {
             console.log(err)
@@ -74,7 +76,8 @@ router.get('/json', (req, res) => {
         .catch(err => {
             // otherwise throw an error
             console.log(err)
-            res.status(400).json(err)
+            //res.status(400).json(err)
+            res.redirect(`/error?error=${err}`)
         })
 })
 
@@ -93,12 +96,14 @@ router.put('/:id', (req, res) => {
                 return car.updateOne(req.body)
             } else {
                 
-                res.sendStatus(401)
+                //res.sendStatus(401)
+                res.redirect(`/error?error=You%20Are%20not%20allowed%20to%20edit%20this%20car`)
             }
         })
         .catch(err => {
             console.log(err)
-            res.status(400).json(err)
+            //res.status(400).json(err)
+            res.redirect(`/error?error=${err}`)
         })
 })
 
@@ -110,17 +115,22 @@ router.delete('/:id', (req, res) => {
     Cars.findById(id)
         .then(car => {
               if (car.owner == req.session.userId) {
-                res.sendStatus(204)
+                //res.sendStatus(204)
 
                 return car.deleteOne()
             } else {
 
-                res.sendStatus(401)
+                //res.sendStatus(401)
+                res.redirect(`/error?error=You%20Are%20not%20allowed%20to%20delete%20this%20car`)
             }
+        })
+        .then(() => {
+            res.redirect('/cars/mine')
         })
         .catch(err => {
             console.log(err)
-            res.status(400).json(err)
+            //res.status(400).json(err)
+            res.redirect(`/error?error=${err}`)
         })
 })
 
@@ -137,7 +147,8 @@ router.get('/:id', (req, res) => {
 
         .catch(err => {
             console.log(err)
-            res.status(404).json(err)
+            //res.status(404).json(err)
+            res.redirect(`/error?error=${err}`)
         })
 })
 
