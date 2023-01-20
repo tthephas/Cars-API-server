@@ -18,22 +18,53 @@ const router = express.Router()
 router.get('/', (req, res) => {
     //find all the cars 
     Cars.find({})
+    .populate('owner', 'username')
+    .populate('comments.author', '-password')
     .then((cars) => {
-        res.json({ cars: cars})
+        res.json({ cars: cars })
+        //res.render('cars/index', { cars })
     })
-    .catch(err => console.log('the following error occurred: \n', err))
+    .catch(err => {
+        console.log(err)
+        res.status(404).json(err)
+    })
 })
 
 
 // CREATE ROUTE
 // CREATE - receives a request body, then creates a new document in the database with that data
 router.post("/", (req, res) => {
+    console.log("here is session user id", req.session.userId)
+    req.body.owner = req.session.userId
     const newCar = req.body
+    console.log(newCar)
     Cars.create(newCar)
         .then(car => {
             res.status(201).json({ car: car.toObject()})
         })
-        .catch((err) => {console.log(err)})
+        .catch(err => {
+            console.log(err)
+            res.status(404).json(err)
+        })
+})
+
+// GET route
+// Index -> This is a user specific index route
+// this will only show the logged in user's cars
+router.get('/mine', (req, res) => {
+    // find cars by ownership, using the req.session info
+    Cars.find({ owner: req.session.userId })
+        .populate('owner', 'username')
+        .populate('comments.author', '-password')
+        .then(cars => {
+            // if found, display the cars
+            res.status(200).json({ cars: cars })
+        })
+        .catch(err => {
+            // otherwise throw an error
+            console.log(err)
+            res.status(400).json(err)
+        })
 })
 
 

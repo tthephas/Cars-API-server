@@ -79,15 +79,19 @@ router.post('/login', async (req, res) => {
                 if (result) {
                     // if the passwords match, place the user's info in the session
                     // this is where we use that session object that lives in our request object
+
+                    console.log('this is req.session \n', req.session)
+
                     req.session.username = username
                     req.session.loggedIn = true
                     req.session.userId = user.id
 
-                    // console.log('this is req.session \n', req.session)
+                    
 
                     // we'll send a 201 response and the user as json(for now)
                     // we'll update this after a couple tests to adhere to best practices
-                    res.redirect('/')
+                    //res.redirect('/')
+                    res.status(201).json({ user: user.toObject() })
                 } else {
                     // if the passwords dont match, send the user a message
                     res.redirect(`/error?error=username%20or password%20is%20incorrect`)
