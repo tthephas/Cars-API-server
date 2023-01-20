@@ -1,16 +1,33 @@
 {% layout 'layout.liquid' %}
 {% block content %}
   {% if cars.length > 0 %}
-    <h2>All of my Cars</h2>
-    <ul>
-      {% for car in cars %}
-        <li>{{ car.make }}</li>
-      {% endfor %}
-    </ul>
+      <div class="container-md">
+        <h2>All Cars</h2>
+        <div class="row">
+            {% for car in cars %}
+                <div class="card me-3 mb-3" style="width: 18rem;">
+                    <h5 class="card-header">{{car.make}}</h5>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            {% if car.forSale %}
+                                For Sale
+                            {% else %}
+                                Not For Sale
+                            {% endif %}
+                        </h5>
+                        <p class="card-text">The color of this {{car.make}} is {{car.color}}</p>
+                        <div class="colorBox mb-2" style="background-color: {{car.color}}"></div>
+                        <a href="/cars/{{car.id}}" class="btn btn-info">View {{car.make}}</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 
   {% else %}
-    <h2>No cars yet.....  go create some!
-    </h2>
+    <div class="container-md">
+      <h2>No Cars yet... Go create some!</h2>
+    </div>
   {% endif %}
 
 

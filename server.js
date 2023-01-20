@@ -23,7 +23,7 @@ middleware(app)
 // ROUTES
 app.get('/', (req, res) => {
     //res.render('home.liquid')
-    const { username, loggedIn, userID } = req.session
+    const { username, loggedIn, userId } = req.session
     res.render('home.liquid', { username, loggedIn, userId })
 })
 
@@ -37,8 +37,9 @@ app.get('/error', (req, res) => {
     const error = req.query.error || "This page does not exist"
 
     // res.render('error.liquid', { error })
-    const { username, loggedIn, userID } = req.session
-    res.render('error.liquid', { error, username, loggedIn, userId })
+    //const { username, loggedIn, userID } = req.session
+    //res.render('error.liquid', { error, username, loggedIn, userId })
+    res.render('error.liquid', { error, ...req.session })
     
 })
 // this catch all route will redirect user to error page
