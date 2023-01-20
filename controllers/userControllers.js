@@ -91,7 +91,7 @@ router.post('/login', async (req, res) => {
                     // we'll send a 201 response and the user as json(for now)
                     // we'll update this after a couple tests to adhere to best practices
                     //res.redirect('/')
-                    res.status(201).json({ user: user.toObject() })
+                    res.redirect('/')
                 } else {
                     // if the passwords dont match, send the user a message
                     res.redirect(`/error?error=username%20or password%20is%20incorrect`)
@@ -122,7 +122,7 @@ router.delete('/logout', (req, res) => {
     req.session.destroy(() => {
         console.log('this is req.session upon logout \n', req.session)
         // eventually we will redirect users here, but thats after adding the view layer
-        res.sendStatus(204)
+        res.redirect('/')
     })
 })
 

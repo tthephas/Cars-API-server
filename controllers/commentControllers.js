@@ -2,7 +2,6 @@
 /////////////////////////////////////
 const express = require('express')
 const Cars = require('../models/cars')
-const Fruit = require('../models/cars')
 
 
 //// Create Router 
