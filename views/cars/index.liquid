@@ -1,8 +1,17 @@
 {% layout 'layout.liquid' %}
 {% block content %}
-    <h1 class="display-4">Welcome To My Cars App</h1>
-    <div class="btn-group btn-group-lg">
-        <a href="/users/signup" class="btn btn-success">Sign Up</a>
-        <a href="/users/login" class="btn btn-success">Login</a>
-    </div>
+  {% if fruits.length > 0 %}
+    <h2>All fruits</h2>
+    <ul>
+      {% for fruit in fruits %}
+        <li>{{ fruit.name }}</li>
+      {% endfor %}
+    </ul>
+
+  {% else %}
+    <h2>No fruits yet.....  go create some!
+    </h2>
+  {% endif %}
+
+
 {% endblock %}
