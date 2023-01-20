@@ -16,13 +16,14 @@ const router = express.Router()
 // INDEX ROUTE
 // this route will display all fruits 
 router.get('/', (req, res) => {
+    const { username, loggedIn, userID } = req.session
     //find all the cars 
     Cars.find({})
     .populate('owner', 'username')
     .populate('comments.author', '-password')
     .then((cars) => {
         
-        res.render('cars/index', { cars })
+        res.render('cars/index', { cars, username, loggedIn, userID })
     })
     .catch(err => {
         console.log(err)
