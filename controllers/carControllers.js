@@ -63,7 +63,7 @@ router.post("/", (req, res) => {
 // GET route
 // Index -> This is a user specific index route
 // this will only show the logged in user's cars
-router.get('/json', (req, res) => {
+router.get('/mine', (req, res) => {
     // find cars by ownership, using the req.session info
     Cars.find({ owner: req.session.userId })
         .populate('owner', 'username')
@@ -82,16 +82,53 @@ router.get('/json', (req, res) => {
 })
 
 
+// GET route
+// Index -> This is a user specific index route
+// this will only show the logged in user's cars
+router.get('/json', (req, res) => {
+    // find cars by ownership, using the req.session info
+    Cars.find({ owner: req.session.userId })
+        .populate('owner', 'username')
+        .populate('comments.author', '-password')
+        .then(cars => {
+            // if found, display the cars
+            //res.status(200).json({ cars: cars })
+            res.render('cars/index', { cars, ...req.session })
+        })
+        .catch(err => {
+            // otherwise throw an error
+            console.log(err)
+            //res.status(400).json(err)
+            res.redirect(`/error?error=${err}`)
+        })
+})
+
+// GET request -> edit route
+// shows the form for updating a car
+router.get('/edit/:id', (req, res) => {
+    // because we're editing a specific car, we want to be able to access the car's initial values. so we can use that info on the page.
+    const carId = req.params.id
+    Cars.findById(carId)
+        .then(car => {
+            res.render('cars/edit', { car, ...req.session })
+        })
+        .catch(err => {
+            res.redirect(`/error?error=${err}`)
+        })
+})
+
+
 //PUT ROUTES
 // update a specific car
 router.put('/:id', (req, res) => {
     const id = req.params.id
+    req.body.forSale = req.body.forSale === 'on' ? true : false
     const updatedCar = req.body
     Cars.findById(id)
         .then(car => {
             if (car.owner == req.session.userId) {
                 // send success message
-                res.sendStatus(204)
+                //res.sendStatus(204)
                
                 return car.updateOne(req.body)
             } else {
@@ -99,6 +136,9 @@ router.put('/:id', (req, res) => {
                 //res.sendStatus(401)
                 res.redirect(`/error?error=You%20Are%20not%20allowed%20to%20edit%20this%20car`)
             }
+        })
+        .then(() => {
+            res.redirect(`/cars/mine`)
         })
         .catch(err => {
             console.log(err)

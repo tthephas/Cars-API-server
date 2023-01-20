@@ -1,28 +1,32 @@
 {% layout 'layout.liquid' %}
 {% block content %}
     <div class="container-sm">
-        <form action="/cars" method="POST">
+        <form action="/cars/{{car.id}}?_method=PUT" method="POST">
             <fieldset>
-                <legend>Create New Car</legend>
+                <legend>Edit {{ car.make }}</legend>
                 <label class="form-label">Make:</label>
                 <input 
                     type="text" class="form-control" 
                     name="make" placeholder="What make of car is it?"
-                    required
+                    required value="{{ car.make }}"
                 >
                 <label class="form-label">Model:</label>
                 <input 
                     type="text" class="form-control" 
                     name="model" placeholder="What model is the car?"
-                    required
+                    required value="{{ car.model }}"
                 >
                 <label class="form-label">For Sale:</label>
                 <input 
                     type="checkbox" class="form-check-control" 
                     name="forSale"
+                    {% if car.forSale %}
+                        checked
+                    {% endif %}
                 >
             </fieldset>
-            <input type="submit" class="btn btn-success" value="Create New Car">
+            <input type="submit" class="btn btn-success" value="Edit {{ car.make }}">
+            <a href="/cars/{{ car.id }}" class="btn btn-warning">Back</a>
         </form>
     </div>
 {% endblock %}
