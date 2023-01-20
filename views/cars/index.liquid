@@ -1,10 +1,10 @@
 {% layout 'layout.liquid' %}
 {% block content %}
-  {% if Cars.length > 0 %}
+  {% if cars.length > 0 %}
     <h2>All of my Cars</h2>
     <ul>
       {% for car in cars %}
-        <li>{{ car.name }}</li>
+        <li>{{ car.make }}</li>
       {% endfor %}
     </ul>
 
