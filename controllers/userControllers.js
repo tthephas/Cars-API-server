@@ -41,12 +41,12 @@ router.post('/signup', async (req, res) => {
         // if we're successful, send a 201 status
         .then(user => {
             // console.log('new user created \n', user)
-            res.status(201).json({ username: user.username })
+            res.redirect('/users/login')
         })
         // if there is an error, handle the error
         .catch(err => {
             console.log(err)
-            res.json(err)
+            res.redirect(`/error?error=username%20taken`)
         })
 })
 
@@ -80,7 +80,7 @@ router.post('/login', async (req, res) => {
                     // if the passwords match, place the user's info in the session
                     // this is where we use that session object that lives in our request object
 
-                    console.log('this is req.session \n', req.session)
+                    //console.log('this is req.session \n', req.session)
 
                     req.session.username = username
                     req.session.loggedIn = true

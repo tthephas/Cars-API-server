@@ -31,3 +31,8 @@ db.on('open', (req, res) => {
         db.close()
     })
 })
+.catch(err => {
+    console.log(err)
+    // always make sure to close the connection
+    db.close()
+})

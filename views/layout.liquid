@@ -12,6 +12,22 @@
         <link rel="stylesheet" href="/styles.css" />
     </head>
     <body>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a href="/" class="navbar-brand">CouldBeURCars</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <a href="/cars" class="nav-link text-light me-3" >All Cars</a>
+                    <a href="/users/signup" class="nav-link text-light me-3">Sign Up</a>
+                    <a href="/users/login" class="nav-link text-light me-3">Log In</a>
+                    <a href="/users/logout" class="nav-link text-light me-3">Log Out</a>
+
+                </div>
+            </div>
+        </nav>
         <main class="container-md">
             {% block content %}
                 default content

@@ -30,6 +30,17 @@ app.use('/cars', CarRouter)
 app.use('/users', UserRouter)
 app.use('/comments', CommentRouter)
 
+//render our error page
+app.get('/error', (req, res) => {
+    const error = req.query.error || "This page does not exist"
+
+    res.render('error.liquid', { error })
+    
+})
+// this catch all route will redirect user to error page
+app.all('*', (req, res) => {
+    res.redirect('/error')
+})
 
 
 // Server listener
