@@ -1,0 +1,17 @@
+{% layout 'layout.liquid' %}
+{% block content %}
+    <div class="container-md">
+        <article>
+            <h2>{{car.make}} {{car.model}}</h2>
+            <h4>
+                {% if car.forSale %}
+                    For Sale
+                {% else %}
+                    Not For Sale
+                {% endif %}
+            </h4>
+            <h4>The color of the car is: {{car.color}}</h4>
+            <div class="colorBox" style="background-color: {{car.color}}"></div>
+        </article>
+    </div>
+{% endblock %}

@@ -6,7 +6,7 @@
         <div class="row">
             {% for car in cars %}
                 <div class="card me-3 mb-3" style="width: 18rem;">
-                    <h5 class="card-header">{{car.make}}</h5>
+                    <h5 class="card-header">{{car.make}} {{car.model}}</h5>
                     <div class="card-body">
                         <h5 class="card-title">
                             {% if car.forSale %}
@@ -17,7 +17,7 @@
                         </h5>
                         <p class="card-text">The color of this {{car.make}} is {{car.color}}</p>
                         <div class="colorBox mb-2" style="background-color: {{car.color}}"></div>
-                        <a href="/cars/{{car.id}}" class="btn btn-info">View {{car.make}}</a>
+                        <a href="/cars/{{car.id}}" class="btn btn-info">View Car</a>
                     </div>
                 </div>
             {% endfor %}

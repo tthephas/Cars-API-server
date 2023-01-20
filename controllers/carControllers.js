@@ -31,14 +31,23 @@ router.get('/', (req, res) => {
     })
 })
 
+// GET for the new page
+// form for user to create a new car
+router.get('/new', (req, res) => {
+    res.render('cars/new', { ...req.session })
+})
 
 // CREATE ROUTE
 // CREATE - receives a request body, then creates a new document in the database with that data
 router.post("/", (req, res) => {
     //console.log("here is session user id", req.session.userId)
     req.body.owner = req.session.userId
+
+    // checkbox magic for the for sale checkbox yes or no
+    req.body.forSale = req.body.forSale === 'on' ? true : false
     const newCar = req.body
-    console.log(newCar)
+    //console.log(newCar)
+    console.log('this is the req.body or newCar, after owner', newCar)
     Cars.create(newCar)
         .then(car => {
             res.status(201).json({ car: car.toObject()})
@@ -52,7 +61,7 @@ router.post("/", (req, res) => {
 // GET route
 // Index -> This is a user specific index route
 // this will only show the logged in user's cars
-router.get('/mine', (req, res) => {
+router.get('/json', (req, res) => {
     // find cars by ownership, using the req.session info
     Cars.find({ owner: req.session.userId })
         .populate('owner', 'username')
@@ -122,7 +131,8 @@ router.get('/:id', (req, res) => {
     Cars.findById(id)
         .populate('comments.author', 'username')
         .then(car => {
-            res.json({ car : car })
+            //res.json({ car : car })
+            res.render('cars/show.liquid', {car, ...req.session})
         })
 
         .catch(err => {
