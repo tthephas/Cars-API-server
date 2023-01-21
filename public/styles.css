@@ -4,6 +4,8 @@ body {
 
 .colorBox {
     height: 25px;
-    width: 75%;
+    width: 25px;
+    border-radius: 50%;
     border: .5px solid grey;
+    shape-margin: 2px;
 }
