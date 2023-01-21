@@ -30,7 +30,7 @@ router.post('/:carId', (req, res) => {
             })
 
             .then(car => {
-                res.status(201).json({ car: car })
+                //res.status(201).json({ car : car })
                 res.redirect(`/cars/${car.id}`)
             })
 
